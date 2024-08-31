@@ -1,4 +1,4 @@
-package Zomato;
+package jdbcPractical.MysqlConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,11 @@ public class Welcome {
 	
 	Homepage homepage = new Homepage();
 	static Scanner sc = new Scanner(System.in);
-	List<User> users = new ArrayList<User>();
+	ZomatoDatabase database = new ZomatoDatabase();
 	
 	public void welcome() {
+		allSet();
+		initializeHotels();
 		while(true) {
 			System.out.println("\nWelcome to zomato");
 			System.out.println("1. Create Account");
@@ -47,9 +49,14 @@ public class Welcome {
 		System.out.print("Enter password : ");
 		String password = sc.nextLine();
 		
-		User user = new User(username,password);
-		users.add(user);
-		System.out.println("Account created");
+		if(!database.validateUsername(username)) {
+			database.insertdata("user", username, password);
+			System.out.println("Account created");
+		}
+		else {
+			System.out.println("Username already exist");
+			System.out.println("Try with different username");
+		}
 	}
 	
 	public void login() {
@@ -59,13 +66,31 @@ public class Welcome {
 		String username = sc.nextLine();
 		System.out.print("Enter password : ");
 		String password = sc.nextLine();
+	
+		database.validatData(username, password);
+		homepage.chooseHotel();
+	}
+	public void allSet() {
+		database.createTable("user","username","password");
+		database.createTable("pizzahotel","id","dishname","price");
+		database.createTable("burgerhotel","id","dishname","price");
+		database.createTable("cart","id","dishname","price");
 		
-		for(User u:users) {
-			if(u.username.equals(username) && u.password.equals(password)) {
-				System.out.println("Login Successful...");
-				homepage.chooseHotel();
-				break;
-			}
-		}
+	}
+	public void initializeHotels() {
+		
+		database.clearCart();
+
+		database.addToTable("pizzahotel",1,"Panner Pizza", 200);
+		database.addToTable("pizzahotel",2,"Cheese Pizza", 300);
+		database.addToTable("pizzahotel",3,"Onion Pizza", 150);
+		database.addToTable("pizzahotel",4,"Tomato crush pizza", 149);
+		database.addToTable("pizzahotel",5,"non veg Pizza", 500);
+		
+		database.addToTable("burgerhotel",1,"Veg burger", 150);
+		database.addToTable("burgerhotel",2,"Aloo burger", 100);
+		database.addToTable("burgerhotel",3,"Cheese burger", 200);
+		database.addToTable("burgerhotel",4,"Non Veg burger", 250);
+		
 	}
 }

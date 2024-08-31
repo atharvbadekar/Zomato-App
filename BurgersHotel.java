@@ -1,4 +1,4 @@
-package Zomato;
+package jdbcPractical.MysqlConnection;
 
 public class BurgersHotel {
 
