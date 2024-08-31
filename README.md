@@ -19,5 +19,4 @@ This is a command line application built in Java that allows users to sign up, l
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/zomato-command-line-app.git
-   cd zomato-command-line-app
+   git clone https://github.com/atharvbadekar/Zomato-App.git
