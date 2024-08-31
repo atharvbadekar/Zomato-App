@@ -11,9 +11,9 @@ import com.mysql.cj.jdbc.Driver;
 
 public class ZomatoDatabase {
 
-	String url = "jdbc:mysql://localhost:3306/zomato11";
-	String userName = "root";
-	String passWord = "password";
+	String url = "jdbc:mysql://localhost:3306/Your_Database_Name";
+	String userName = "Your_Username";
+	String passWord = "Your_Password";
 
 	public void createTable(String tablename,String column1,String column2) {
 
